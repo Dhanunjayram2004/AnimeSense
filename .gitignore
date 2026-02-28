@@ -1,0 +1,9 @@
+# Ignore dependencies
+node_modules/
+dist/
+
+# Ignore PocketBase local data (Don't upload your users/passwords!)
+app/pocketbase/pb_data/
+
+# Ignore Android build files
+app/web/android/

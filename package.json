@@ -1,0 +1,22 @@
+{
+  "name": "monorepo",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "concurrently --kill-others --raw \"npm run dev --prefix apps/web\" \"npm run dev --prefix apps/pocketbase\"",
+    "build": "concurrently --raw \"npm run build --prefix apps/web\"",
+    "start": "concurrently --kill-others --raw \"npm run start --prefix apps/pocketbase\"",
+    "lint": "concurrently --raw \"npm run lint --prefix apps/web\""
+  },
+  "devDependencies": {
+    "@types/node": "^25.3.2",
+    "concurrently": "^9.1.2"
+  },
+  "workspaces": [
+    "apps/*"
+  ],
+  "dependencies": {
+    "@capacitor/cli": "^8.1.0",
+    "@capacitor/core": "^8.1.0"
+  }
+}

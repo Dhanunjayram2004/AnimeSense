@@ -1,0 +1,28 @@
+/// <reference path="../pb_data/types.d.ts" />
+// Allow Capacitor app and local dev origins for CORS
+const ALLOWED_ORIGINS = [
+  "capacitor://localhost",
+  "http://localhost",
+  "http://127.0.0.1",
+  "http://10.109.11.180",
+  "http://192.168.55.102",
+];
+
+function isAllowed(origin) {
+  if (!origin) return false;
+  return ALLOWED_ORIGINS.some((o) => origin === o || origin.startsWith(o + ":"));
+}
+
+routerUse((e) => {
+  const origin = e.request.header.get("Origin");
+  if (isAllowed(origin)) {
+    e.response.header().set("Access-Control-Allow-Origin", origin);
+    e.response.header().set("Access-Control-Allow-Methods", "GET, POST, PATCH, PUT, DELETE, OPTIONS");
+    e.response.header().set("Access-Control-Allow-Headers", "Content-Type, Authorization");
+    e.response.header().set("Access-Control-Allow-Credentials", "true");
+  }
+  if (e.request.method === "OPTIONS") {
+    return e.string(204, "");
+  }
+  return e.next();
+});
